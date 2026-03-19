@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.serenity.app.ui.home.HomeScreen
 import com.serenity.app.ui.onboarding.OnboardingScreen
 
 @Composable
@@ -38,7 +39,17 @@ fun SerenityNavGraph(
             )
         }
         composable(Routes.Home.route) {
-            PlaceholderScreen("Home")
+            HomeScreen(
+                onStartRitual = {
+                    navController.navigate(Routes.Ritual.route)
+                },
+                onNavigateToHistory = {
+                    navController.navigate(Routes.History.route)
+                },
+                onNavigateToSettings = {
+                    navController.navigate(Routes.Settings.route)
+                },
+            )
         }
         composable(Routes.Ritual.route) {
             PlaceholderScreen("Ritual")
