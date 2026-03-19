@@ -1,0 +1,119 @@
+<h2>V2 — Wellness History Chart Style</h2>
+<p class="subtitle">How should the history screen visualize your wellness data over time?</p>
+
+<div class="cards">
+  <div class="card" data-choice="line" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding: 20px; background: #f4f7f4; border-radius: 8px;">
+        <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+          <p style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3a4a3a;">This Week</p>
+          <p style="margin: 0 0 16px 0; font-size: 12px; color: #8a9a8a;">Wellness Score</p>
+          <svg viewBox="0 0 280 100" style="width:100%;height:80px;">
+            <!-- Grid lines -->
+            <line x1="0" y1="20" x2="280" y2="20" stroke="#f0f4f0" stroke-width="1"/>
+            <line x1="0" y1="50" x2="280" y2="50" stroke="#f0f4f0" stroke-width="1"/>
+            <line x1="0" y1="80" x2="280" y2="80" stroke="#f0f4f0" stroke-width="1"/>
+            <!-- Gradient fill -->
+            <defs>
+              <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7c9a7c" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#7c9a7c" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M10,70 L50,45 L90,30 L130,50 L170,25 L210,35 L250,20" fill="none" stroke="#7c9a7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10,70 L50,45 L90,30 L130,50 L170,25 L210,35 L250,20 L250,100 L10,100 Z" fill="url(#lineGrad)"/>
+            <!-- Dots -->
+            <circle cx="10" cy="70" r="3.5" fill="#7c9a7c"/>
+            <circle cx="50" cy="45" r="3.5" fill="#7c9a7c"/>
+            <circle cx="90" cy="30" r="3.5" fill="#7c9a7c"/>
+            <circle cx="130" cy="50" r="3.5" fill="#7c9a7c"/>
+            <circle cx="170" cy="25" r="3.5" fill="#7c9a7c"/>
+            <circle cx="210" cy="35" r="3.5" fill="#7c9a7c"/>
+            <circle cx="250" cy="20" r="4.5" fill="#7c9a7c" stroke="white" stroke-width="2"/>
+          </svg>
+          <div style="display:flex; justify-content:space-between; margin-top:6px;">
+            <span style="font-size:10px;color:#8a9a8a;">Mon</span>
+            <span style="font-size:10px;color:#8a9a8a;">Tue</span>
+            <span style="font-size:10px;color:#8a9a8a;">Wed</span>
+            <span style="font-size:10px;color:#8a9a8a;">Thu</span>
+            <span style="font-size:10px;color:#8a9a8a;">Fri</span>
+            <span style="font-size:10px;color:#8a9a8a;">Sat</span>
+            <span style="font-size:10px;color:#8a9a8a;font-weight:600;">Sun</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Smooth Line + Gradient</h3>
+      <p>Curved line with a soft gradient fill below it. Premium, calm, shows trends clearly. Like Apple Health.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding: 20px; background: #f4f7f4; border-radius: 8px;">
+        <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+          <p style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3a4a3a;">This Week</p>
+          <p style="margin: 0 0 16px 0; font-size: 12px; color: #8a9a8a;">Wellness Score</p>
+          <svg viewBox="0 0 280 100" style="width:100%;height:80px;">
+            <rect x="5" y="68" width="30" height="32" rx="6" fill="#d4e4d4"/>
+            <rect x="45" y="43" width="30" height="57" rx="6" fill="#a8c4a8"/>
+            <rect x="85" y="28" width="30" height="72" rx="6" fill="#7c9a7c"/>
+            <rect x="125" y="48" width="30" height="52" rx="6" fill="#a8c4a8"/>
+            <rect x="165" y="23" width="30" height="77" rx="6" fill="#7c9a7c"/>
+            <rect x="205" y="33" width="30" height="67" rx="6" fill="#7c9a7c"/>
+            <rect x="245" y="18" width="30" height="82" rx="6" fill="#3a6a3a"/>
+            <!-- Score labels on top -->
+            <text x="20" y="63" font-size="8" fill="#8a9a8a" text-anchor="middle">32</text>
+            <text x="60" y="38" font-size="8" fill="#8a9a8a" text-anchor="middle">57</text>
+            <text x="100" y="23" font-size="8" fill="#8a9a8a" text-anchor="middle">72</text>
+            <text x="140" y="43" font-size="8" fill="#8a9a8a" text-anchor="middle">52</text>
+            <text x="180" y="18" font-size="8" fill="#8a9a8a" text-anchor="middle">77</text>
+            <text x="220" y="28" font-size="8" fill="#8a9a8a" text-anchor="middle">67</text>
+            <text x="260" y="13" font-size="8" fill="#3a6a3a" font-weight="bold" text-anchor="middle">82</text>
+          </svg>
+          <div style="display:flex; justify-content:space-between; margin-top:6px;">
+            <span style="font-size:10px;color:#8a9a8a;">Mon</span>
+            <span style="font-size:10px;color:#8a9a8a;">Tue</span>
+            <span style="font-size:10px;color:#8a9a8a;">Wed</span>
+            <span style="font-size:10px;color:#8a9a8a;">Thu</span>
+            <span style="font-size:10px;color:#8a9a8a;">Fri</span>
+            <span style="font-size:10px;color:#8a9a8a;">Sat</span>
+            <span style="font-size:10px;color:#8a9a8a;font-weight:600;">Sun</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Rounded Bar Chart</h3>
+      <p>Rounded bars with color intensity reflecting score level. Satisfying and easy to compare days at a glance.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="multi" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding: 20px; background: #f4f7f4; border-radius: 8px;">
+        <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+          <p style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #3a4a3a;">This Week</p>
+          <p style="margin: 0 0 12px 0; font-size: 12px; color: #8a9a8a;">By Category</p>
+          <!-- Mood line -->
+          <svg viewBox="0 0 280 80" style="width:100%;height:65px;">
+            <path d="M10,55 L50,35 L90,25 L130,40 L170,20 L210,30 L250,15" fill="none" stroke="#e8a87c" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10,65 L50,50 L90,40 L130,45 L170,35 L210,55 L250,30" fill="none" stroke="#7c9a7c" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10,50 L50,60 L90,35 L130,55 L170,30 L210,40 L250,25" fill="none" stroke="#8b7eaa" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <!-- Legend -->
+          <div style="display:flex; gap:16px; margin-top:4px;">
+            <div style="display:flex;align-items:center;gap:4px;"><div style="width:12px;height:3px;background:#e8a87c;border-radius:2px;"></div><span style="font-size:10px;color:#8a9a8a;">Mood</span></div>
+            <div style="display:flex;align-items:center;gap:4px;"><div style="width:12px;height:3px;background:#7c9a7c;border-radius:2px;"></div><span style="font-size:10px;color:#8a9a8a;">Sleep</span></div>
+            <div style="display:flex;align-items:center;gap:4px;"><div style="width:12px;height:3px;background:#8b7eaa;border-radius:2px;"></div><span style="font-size:10px;color:#8a9a8a;">Water</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Multi-line by Category</h3>
+      <p>Separate lines for mood, sleep, and water. Shows which habits drive your score. More data-dense, more insightful.</p>
+    </div>
+  </div>
+</div>
