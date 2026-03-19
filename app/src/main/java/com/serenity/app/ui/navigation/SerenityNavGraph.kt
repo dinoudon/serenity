@@ -70,7 +70,7 @@ fun SerenityNavGraph(
         }
         composable(Routes.History.route) {
             HistoryScreen(
-                onBack = {
+                onNavigateBack = {
                     navController.popBackStack()
                 },
             )

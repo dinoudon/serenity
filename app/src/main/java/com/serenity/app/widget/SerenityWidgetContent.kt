@@ -36,13 +36,21 @@ data class WidgetState(
     val themeName: String  // "SAGE", "LAVENDER", "SAND"
 )
 
-@Composable
-fun SerenityWidgetContent(state: WidgetState) {
-    val (primaryColor, lightColor) = when (state.themeName) {
+/**
+ * Resolves theme colors by theme name.
+ * Returns a Pair of (primaryColor, lightColor).
+ * Unknown themes default to SAGE colors.
+ */
+internal fun themeColors(themeName: String): Pair<Color, Color> =
+    when (themeName) {
         "LAVENDER" -> Color(0xFF8b7eaa) to Color(0xFFb4a8cc)
         "SAND" -> Color(0xFFb09a7c) to Color(0xFFc8b8a4)
         else -> Color(0xFF7c9a7c) to Color(0xFFa8c4a8) // SAGE default
     }
+
+@Composable
+fun SerenityWidgetContent(state: WidgetState) {
+    val (primaryColor, lightColor) = themeColors(state.themeName)
 
     Box(
         modifier = GlanceModifier
