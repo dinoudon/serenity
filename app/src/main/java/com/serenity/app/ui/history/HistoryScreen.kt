@@ -36,6 +36,24 @@ fun HistoryScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    HistoryScreenContent(
+        uiState = uiState,
+        onNavigateBack = onNavigateBack,
+        onViewModeChange = viewModel::setViewMode,
+        onBarTapped = viewModel::onBarTapped,
+        onDismissDetail = viewModel::dismissDayDetail
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun HistoryScreenContent(
+    uiState: HistoryUiState,
+    onNavigateBack: () -> Unit,
+    onViewModeChange: (HistoryViewMode) -> Unit,
+    onBarTapped: (java.time.LocalDate) -> Unit,
+    onDismissDetail: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             title = { Text("Your History") },
@@ -55,12 +73,12 @@ fun HistoryScreen(
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                 SegmentedButton(
                     selected = uiState.viewMode == HistoryViewMode.WEEK,
-                    onClick = { viewModel.setViewMode(HistoryViewMode.WEEK) },
+                    onClick = { onViewModeChange(HistoryViewMode.WEEK) },
                     shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2)
                 ) { Text("Week") }
                 SegmentedButton(
                     selected = uiState.viewMode == HistoryViewMode.MONTH,
-                    onClick = { viewModel.setViewMode(HistoryViewMode.MONTH) },
+                    onClick = { onViewModeChange(HistoryViewMode.MONTH) },
                     shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
                 ) { Text("Month") }
             }
@@ -93,7 +111,7 @@ fun HistoryScreen(
                         WellnessBarChart(
                             weekBars = uiState.weekBars,
                             selectedDate = uiState.selectedDayRitual?.date,
-                            onBarTap = viewModel::onBarTapped,
+                            onBarTap = onBarTapped,
                             modifier = Modifier.fillMaxWidth()
                         )
                     } else {
@@ -137,7 +155,7 @@ fun HistoryScreen(
     uiState.selectedDayRitual?.let { ritual ->
         DayDetailSheet(
             ritual = ritual,
-            onDismiss = viewModel::dismissDayDetail
+            onDismiss = onDismissDetail
         )
     }
 }
