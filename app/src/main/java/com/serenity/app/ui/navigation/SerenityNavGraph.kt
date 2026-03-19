@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.serenity.app.ui.onboarding.OnboardingScreen
 
 @Composable
 fun SerenityNavGraph(
@@ -28,7 +29,13 @@ fun SerenityNavGraph(
         modifier = modifier,
     ) {
         composable(Routes.Onboarding.route) {
-            PlaceholderScreen("Onboarding")
+            OnboardingScreen(
+                onOnboardingComplete = {
+                    navController.navigate(Routes.Home.route) {
+                        popUpTo(Routes.Onboarding.route) { inclusive = true }
+                    }
+                },
+            )
         }
         composable(Routes.Home.route) {
             PlaceholderScreen("Home")
