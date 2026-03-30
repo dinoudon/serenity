@@ -8,6 +8,7 @@ import com.serenity.app.domain.repository.PreferencesRepository
 import com.serenity.app.domain.usecase.GetRandomQuoteUseCase
 import com.serenity.app.domain.usecase.GetStreakUseCase
 import com.serenity.app.domain.usecase.GetTodayRitualUseCase
+import com.serenity.app.domain.usecase.GetUserProgressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +22,8 @@ data class HomeUiState(
     val todayRitual: DailyRitual? = null,
     val streak: Int = 0,
     val quote: WellnessQuote = WellnessQuote("", ""),
+    val levelEmoji: String = "🌱",
+    val levelName: String = "Seedling",
     val isLoading: Boolean = true,
 )
 
@@ -30,6 +33,7 @@ class HomeViewModel @Inject constructor(
     private val getStreakUseCase: GetStreakUseCase,
     private val getRandomQuoteUseCase: GetRandomQuoteUseCase,
     private val preferencesRepository: PreferencesRepository,
+    private val getUserProgressUseCase: GetUserProgressUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -63,6 +67,12 @@ class HomeViewModel @Inject constructor(
                         isLoading = false,
                     )
                 }
+            }
+        }
+
+        viewModelScope.launch {
+            runCatching { getUserProgressUseCase() }.onSuccess { progress ->
+                _uiState.update { it.copy(levelEmoji = progress.levelEmoji, levelName = progress.levelName) }
             }
         }
     }

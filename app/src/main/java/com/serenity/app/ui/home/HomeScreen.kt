@@ -3,6 +3,7 @@ package com.serenity.app.ui.home
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,8 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,8 +23,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,8 +53,7 @@ import java.util.Locale
 @Composable
 fun HomeScreen(
     onStartRitual: () -> Unit,
-    onNavigateToHistory: () -> Unit,
-    onNavigateToSettings: () -> Unit,
+    onNavigateToProfile: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -82,6 +82,28 @@ fun HomeScreen(
             userName = uiState.userName,
             todayRitual = uiState.todayRitual,
         )
+
+        Spacer(Modifier.height(8.dp))
+        Surface(
+            shape = RoundedCornerShape(50),
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable { onNavigateToProfile() }
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Text(uiState.levelEmoji, fontSize = 16.sp)
+                Text(
+                    uiState.levelName,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -120,23 +142,6 @@ fun HomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Bottom nav links
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            TextButton(onClick = onNavigateToHistory) {
-                Text("History")
-            }
-            Spacer(modifier = Modifier.width(24.dp))
-            TextButton(onClick = onNavigateToSettings) {
-                Text("Settings")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
