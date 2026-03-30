@@ -10,4 +10,9 @@ interface RitualRepository {
     fun getRitualsInRange(start: LocalDate, end: LocalDate): Flow<List<DailyRitual>>
     fun getLatestRitual(): Flow<DailyRitual?>
     suspend fun getCurrentStreak(): Int
+    suspend fun countPerfectScores(): Int
+    suspend fun countNonNullSleep(): Int
+    suspend fun countNonNullWater(): Int
+    suspend fun countNonNullGratitude(): Int
+    suspend fun countBreathingCompleted(): Int
 }

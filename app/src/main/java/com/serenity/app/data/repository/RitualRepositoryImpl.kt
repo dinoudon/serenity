@@ -59,4 +59,10 @@ class RitualRepositoryImpl @Inject constructor(
 
         return streak
     }
+
+    override suspend fun countPerfectScores(): Int = ritualDao.countPerfectScores()
+    override suspend fun countNonNullSleep(): Int = ritualDao.countNonNullSleep()
+    override suspend fun countNonNullWater(): Int = ritualDao.countNonNullWater()
+    override suspend fun countNonNullGratitude(): Int = ritualDao.countNonNullGratitude()
+    override suspend fun countBreathingCompleted(): Int = ritualDao.countBreathingCompleted()
 }
