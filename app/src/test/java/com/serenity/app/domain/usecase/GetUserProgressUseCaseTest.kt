@@ -13,6 +13,8 @@ class GetUserProgressUseCaseTest {
     private fun useCase(xp: Int, unlockedIds: Set<String> = emptySet()) =
         GetUserProgressUseCase(object : AchievementRepository {
             override suspend fun getUnlockedIds() = unlockedIds
+            override suspend fun getUnlockedIdsWithTimestamps(): Map<String, Instant> =
+                unlockedIds.associateWith { Instant.EPOCH }
             override suspend fun recordUnlock(id: String, at: Instant) {}
             override suspend fun getTotalXp() = xp
             override suspend fun addXp(amount: Int) {}

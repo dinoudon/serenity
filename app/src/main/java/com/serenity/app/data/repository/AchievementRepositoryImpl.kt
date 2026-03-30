@@ -14,6 +14,9 @@ class AchievementRepositoryImpl @Inject constructor(
     override suspend fun getUnlockedIds(): Set<String> =
         dao.getAllUnlocks().map { it.achievementId }.toSet()
 
+    override suspend fun getUnlockedIdsWithTimestamps(): Map<String, Instant> =
+        dao.getAllUnlocks().associate { it.achievementId to Instant.ofEpochMilli(it.unlockedAt) }
+
     override suspend fun recordUnlock(achievementId: String, unlockedAt: Instant) {
         dao.insertUnlock(AchievementUnlockEntity(achievementId, unlockedAt.toEpochMilli()))
     }
@@ -22,7 +25,7 @@ class AchievementRepositoryImpl @Inject constructor(
         dao.getUserProgress()?.totalXp ?: 0
 
     override suspend fun addXp(amount: Int) {
-        val current = dao.getUserProgress()?.totalXp ?: 0
-        dao.upsertUserProgress(UserProgressEntity(id = 1, totalXp = current + amount))
+        dao.insertProgressIfAbsent(UserProgressEntity(id = 1, totalXp = 0))
+        dao.incrementXp(amount)
     }
 }

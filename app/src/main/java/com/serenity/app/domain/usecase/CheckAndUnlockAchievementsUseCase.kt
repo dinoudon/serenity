@@ -59,10 +59,10 @@ class CheckAndUnlockAchievementsUseCase @Inject constructor(
             }
         }
 
-        // Streak milestone bonus XP (awarded once per milestone, same as unlock)
+        // Streak milestone bonus XP (awarded once per milestone — gated on first-time unlock)
         val streakMilestones = mapOf("streak_7" to 7, "streak_30" to 30, "streak_100" to 100, "streak_365" to 365)
         for ((id, threshold) in streakMilestones) {
-            if (streak == threshold) { // exact hit = today crossed the milestone
+            if (streak == threshold && id !in alreadyUnlocked) {
                 xpEarned += 20
             }
         }

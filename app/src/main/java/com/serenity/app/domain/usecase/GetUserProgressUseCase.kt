@@ -3,7 +3,6 @@ package com.serenity.app.domain.usecase
 import com.serenity.app.domain.model.Achievement
 import com.serenity.app.domain.model.UserProgress
 import com.serenity.app.domain.repository.AchievementRepository
-import java.time.Instant
 import javax.inject.Inject
 
 class GetUserProgressUseCase @Inject constructor(
@@ -12,15 +11,14 @@ class GetUserProgressUseCase @Inject constructor(
 
     suspend operator fun invoke(): UserProgress {
         val totalXp = achievementRepository.getTotalXp()
-        val unlockedIds = achievementRepository.getUnlockedIds()
+        val unlockedTimestamps = achievementRepository.getUnlockedIdsWithTimestamps()
 
         val level = levelFor(totalXp)
         val levelThreshold = LEVELS[level - 1].second
         val nextThreshold = LEVELS.getOrNull(level)?.second
 
         val achievements = AchievementCatalogue.all.map { template ->
-            val unlockedAt: Instant? = if (template.id in unlockedIds) Instant.now() else null
-            template.copy(unlockedAt = unlockedAt)
+            template.copy(unlockedAt = unlockedTimestamps[template.id])
         }
 
         return UserProgress(

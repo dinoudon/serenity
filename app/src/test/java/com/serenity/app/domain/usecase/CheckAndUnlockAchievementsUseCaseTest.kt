@@ -62,6 +62,15 @@ class CheckAndUnlockAchievementsUseCaseTest {
     }
 
     @Test
+    fun `milestone bonus XP not re-awarded when streak achievement already unlocked`() = runTest {
+        ritualRepo.streak = 7
+        achievementRepo.alreadyUnlocked = mutableSetOf("streak_7")
+        useCase(wellnessScore = 50)
+        // 10 base only — achievement XP and milestone bonus both suppressed
+        assertEquals(10, achievementRepo.totalXp)
+    }
+
+    @Test
     fun `perfect score 1 unlocks score_perfect_1`() = runTest {
         ritualRepo.perfectScores = 1
         useCase(wellnessScore = 100)
@@ -117,6 +126,8 @@ class FakeAchievementRepository : AchievementRepository {
     var totalXp: Int = 0
 
     override suspend fun getUnlockedIds(): Set<String> = alreadyUnlocked
+    override suspend fun getUnlockedIdsWithTimestamps(): Map<String, Instant> =
+        alreadyUnlocked.associateWith { Instant.EPOCH }
     override suspend fun recordUnlock(achievementId: String, unlockedAt: Instant) {
         unlocked.add(achievementId)
     }
