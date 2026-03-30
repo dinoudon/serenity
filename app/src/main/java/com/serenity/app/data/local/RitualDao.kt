@@ -23,4 +23,19 @@ interface RitualDao {
 
     @Query("SELECT date FROM daily_ritual ORDER BY date DESC")
     suspend fun getAllDatesDescending(): List<String>
+
+    @Query("SELECT COUNT(*) FROM daily_ritual WHERE sleepHours IS NOT NULL")
+    suspend fun countNonNullSleep(): Int
+
+    @Query("SELECT COUNT(*) FROM daily_ritual WHERE waterGlasses IS NOT NULL")
+    suspend fun countNonNullWater(): Int
+
+    @Query("SELECT COUNT(*) FROM daily_ritual WHERE gratitudeNote IS NOT NULL AND gratitudeNote != ''")
+    suspend fun countNonNullGratitude(): Int
+
+    @Query("SELECT COUNT(*) FROM daily_ritual WHERE breathingCompleted = 1")
+    suspend fun countBreathingCompleted(): Int
+
+    @Query("SELECT COUNT(*) FROM daily_ritual WHERE wellnessScore = 100")
+    suspend fun countPerfectScores(): Int
 }
