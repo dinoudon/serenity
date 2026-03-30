@@ -50,7 +50,7 @@ class GetMonthlyStatsUseCase @Inject constructor() {
             .maxWithOrNull(
                 compareBy<HabitType> { habit ->
                     rituals.count { it.hasHabit(habit) } / total
-                }.thenByDescending { -it.ordinal }
+                }.thenByDescending { it.ordinal }
             )!!
     }
 
