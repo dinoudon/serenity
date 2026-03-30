@@ -15,6 +15,7 @@ import javax.inject.Inject
 class CompleteRitualUseCase @Inject constructor(
     private val ritualRepository: RitualRepository,
     private val calculateWellnessScoreUseCase: CalculateWellnessScoreUseCase,
+    private val checkAndUnlockAchievementsUseCase: CheckAndUnlockAchievementsUseCase,
     @ApplicationContext private val context: Context
 ) {
 
@@ -46,7 +47,12 @@ class CompleteRitualUseCase @Inject constructor(
 
         ritualRepository.saveRitual(ritual)
 
-        // Trigger full widget refresh — reads latest data from Room and updates Glance state
+        // Fire-and-forget: achievement failure must not block ritual save
+        runCatching {
+            checkAndUnlockAchievementsUseCase(wellnessScore = score)
+        }
+
+        // Trigger widget refresh
         runCatching {
             val manager = AppWidgetManager.getInstance(context)
             val ids = manager.getAppWidgetIds(
