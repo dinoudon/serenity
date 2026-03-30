@@ -45,3 +45,6 @@ google-services.json
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# AI artifacts & plan docs
+docs/superpowers/
