@@ -18,6 +18,7 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
+import androidx.glance.layout.width
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -120,7 +121,7 @@ fun SerenityWidgetContent(state: WidgetState) {
 
             Spacer(modifier = GlanceModifier.height(6.dp))
 
-            // Progress bar
+            // Progress bar (inner width ~86dp = 110dp widget - 2*12dp padding)
             if (state.score != null) {
                 Box(
                     modifier = GlanceModifier
@@ -131,7 +132,7 @@ fun SerenityWidgetContent(state: WidgetState) {
                 ) {
                     Box(
                         modifier = GlanceModifier
-                            .fillMaxWidth(state.score / 100f)
+                            .width((state.score * 86 / 100).dp)
                             .height(4.dp)
                             .background(Color.White)
                             .cornerRadius(2.dp)

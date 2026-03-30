@@ -12,6 +12,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.state.updateAppWidgetState
+import androidx.glance.appwidget.updateAll
 import androidx.room.Room
 import com.serenity.app.data.local.SerenityDatabase
 import kotlinx.coroutines.CoroutineScope

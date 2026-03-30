@@ -1,9 +1,12 @@
 package com.serenity.app.domain.usecase
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
-import androidx.glance.appwidget.GlanceAppWidgetManager
+import android.content.Intent
 import com.serenity.app.domain.model.DailyRitual
 import com.serenity.app.domain.repository.RitualRepository
+import com.serenity.app.widget.SerenityWidgetReceiver
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import java.time.LocalDate
@@ -43,8 +46,20 @@ class CompleteRitualUseCase @Inject constructor(
 
         ritualRepository.saveRitual(ritual)
 
+        // Trigger full widget refresh — reads latest data from Room and updates Glance state
         runCatching {
-            GlanceAppWidgetManager(context).updateAll(context)
+            val manager = AppWidgetManager.getInstance(context)
+            val ids = manager.getAppWidgetIds(
+                ComponentName(context, SerenityWidgetReceiver::class.java)
+            )
+            if (ids.isNotEmpty()) {
+                context.sendBroadcast(
+                    Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+                        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                        component = ComponentName(context, SerenityWidgetReceiver::class.java)
+                    }
+                )
+            }
         }
     }
 }
