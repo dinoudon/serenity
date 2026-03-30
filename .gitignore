@@ -48,3 +48,9 @@ Thumbs.db
 
 # AI artifacts & plan docs
 docs/superpowers/
+
+# Git worktrees
+.worktrees/
+
+# Local MCP config (contains machine-local paths)
+.mcp.json
