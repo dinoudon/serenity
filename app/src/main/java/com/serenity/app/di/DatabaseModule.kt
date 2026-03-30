@@ -2,6 +2,8 @@ package com.serenity.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.serenity.app.data.local.AchievementDao
+import com.serenity.app.data.local.MIGRATION_1_2
 import com.serenity.app.data.local.RitualDao
 import com.serenity.app.data.local.SerenityDatabase
 import dagger.Module
@@ -22,11 +24,16 @@ object DatabaseModule {
             context,
             SerenityDatabase::class.java,
             "serenity_database"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     @Provides
-    fun provideRitualDao(database: SerenityDatabase): RitualDao {
-        return database.ritualDao()
-    }
+    fun provideRitualDao(database: SerenityDatabase): RitualDao =
+        database.ritualDao()
+
+    @Provides
+    fun provideAchievementDao(database: SerenityDatabase): AchievementDao =
+        database.achievementDao()
 }

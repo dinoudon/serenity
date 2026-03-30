@@ -18,4 +18,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindPreferencesRepository(impl: PreferencesRepositoryImpl): PreferencesRepository
+
+    @Binds
+    abstract fun bindAchievementRepository(impl: com.serenity.app.data.repository.AchievementRepositoryImpl): com.serenity.app.domain.repository.AchievementRepository
 }
