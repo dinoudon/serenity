@@ -1,5 +1,7 @@
 # Serenity
 
+![CI](https://github.com/dinoudon/serenity/actions/workflows/ci.yml/badge.svg)
+
 A holistic daily wellness Android app. Complete a 2-minute guided ritual each day — track mood, sleep, hydration, breathing, and gratitude — and watch your wellness score and streaks grow over time.
 
 ## Features
@@ -55,6 +57,15 @@ com.serenity.app/
 ├── widget/             # Glance home screen widget
 └── di/                 # Hilt modules
 ```
+
+## Getting Started
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/dinoudon/serenity.git
+   ```
+2. Open in Android Studio Ladybug or newer
+3. Sync Gradle and run on an emulator or device (API 26+)
 
 ## Build
 
